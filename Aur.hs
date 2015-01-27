@@ -88,22 +88,11 @@ getPKGList :: AUR -> [Package]
 getPKGList = results
 
 
-wrapLine :: Int -> String -> String
-wrapLine len str = unwords $ wrap [""] $ words str
-    where
-        wrap :: [String] -> [String] -> [String]
-        wrap ls [] = ls
-        wrap ls@(l:rest) wl@(w:ws)
-            | length l <= len = wrap (l : (w ++ " ")) ws
-            | length l >= len = wrap rest wl
-            | otherwise = ls
-
-
 prettyPrint :: Package -> IO ()
 prettyPrint pkg = do
     let prefix = "https://aur.archlinux.org"
-    putColorStr Vivid Magenta Dull Black ("* " ++ name pkg)
+    putColorStr Vivid White Dull Black ("* " ++ name pkg)
     putColorStr Vivid Green Dull Black (" " ++ version pkg ++ "\n")
-    --putColorStr Vivid Blue Dull Black ("    " ++ prefix ++ urlPath pkg ++ "\n")
+    putColorStr Vivid Blue Dull Black ("    " ++ prefix ++ urlPath pkg ++ "\n")
     --mapM_ (\x -> putColorStr Dull White Dull Black ("    " ++ x ++ "\n")) (wrapLine $ description pkg)
-    putColorStr Vivid Blue Dull Black ("    Homepage: " ++ url pkg ++ "\n")
+    --putColorStr Vivid Blue Dull Black ("    Homepage: " ++ url pkg ++ "\n")
